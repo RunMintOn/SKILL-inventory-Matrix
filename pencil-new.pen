@@ -1,0 +1,2520 @@
+{
+  "version": "2.8",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "Skill Manager Concept",
+      "clip": true,
+      "width": 1440,
+      "height": 1024,
+      "fill": "#F8FAFC",
+      "children": [
+        {
+          "type": "frame",
+          "id": "1C43Y",
+          "name": "Sidebar",
+          "width": 360,
+          "height": "fill_container",
+          "fill": "#F1F5F9",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": 24,
+          "children": [
+            {
+              "type": "text",
+              "id": "7y6IT",
+              "name": "brandA",
+              "fill": "#0F172A",
+              "content": "SKILLMGR/01",
+              "fontFamily": "Outfit",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "kKsFR",
+              "name": "sideDescA",
+              "fill": "#64748B",
+              "content": "LOCAL COMMAND CENTER\nShared + private skills\nacross Windows and WSL.",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "DOyKd",
+              "name": "Environment Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "UNLU8",
+                  "name": "envTextA",
+                  "fill": "#334155",
+                  "content": "[ENVIRONMENTS]\nWINDOWS  ACTIVE    4 ROOTS\nWSL      DEGRADED  1 ROOT\n\nISSUE\nWSL ROOT CURRENTLY UNREADABLE",
+                  "fontFamily": "Outfit",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "oV5Sj",
+              "name": "Roots Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HDxar",
+                  "name": "rootsTextA",
+                  "fill": "#64748B",
+                  "content": "[REGISTERED ROOTS]\nC:\\Users\\l3e\\.agents\\skills\nC:\\Users\\l3e\\.config\\opencode\\skills\nC:\\Users\\l3e\\.codex\\skills\n\\\\wsl.localhost\\Ubuntu\\home\\lee\\.codex\\skills\nC:\\Users\\l3e\\.claude\\skills",
+                  "fontFamily": "Outfit",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "rnbbL",
+              "name": "Action Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ymehZ",
+                  "name": "actionTextA",
+                  "fill": "#2563EB",
+                  "content": "[PRIMARY ACTIONS]\nSCAN ROOTS\nOPEN SKILL.MD\nREVEAL FOLDER\nMANUAL SYNC TO TARGET",
+                  "fontFamily": "Outfit",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VOlyG",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#F8FAFC",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            32,
+            40
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Xjuwm",
+              "name": "heroKickerA",
+              "fill": "#2563EB",
+              "content": "// SKILL TOPOLOGY",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "g0sae",
+              "name": "heroTitleA",
+              "fill": "#0F172A",
+              "content": "Cross-Environment Skill Manager",
+              "fontFamily": "Outfit",
+              "fontSize": 34,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "PMzSv",
+              "name": "heroSubA",
+              "fill": "#64748B",
+              "content": "Scan roots, group by SKILL.md name, inspect duplicates, then manually sync only when you choose.",
+              "fontFamily": "Outfit",
+              "fontSize": 13,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "75EET",
+              "name": "Metrics Row",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HqYkn",
+                  "name": "Metric Roots",
+                  "width": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "7LMdw",
+                      "name": "metricTextAA",
+                      "fill": "#0F172A",
+                      "content": "TOTAL ROOTS\n05\nWINDOWS 4 / WSL 1",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "W58Iv",
+                  "name": "Metric Skills",
+                  "width": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ymkmE",
+                      "name": "metricTextBA",
+                      "fill": "#0F172A",
+                      "content": "VISIBLE SKILLS\n43\n6 DUPLICATES / 1 LINKED",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "gIlGM",
+              "name": "Content Row",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "RMCy0",
+                  "name": "Inventory Panel",
+                  "width": 430,
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "3e38e",
+                      "name": "inventoryTextA",
+                      "fill": "#0F172A",
+                      "content": "[WINDOWS ROOT / .agents\\skills]\nbrainstorming\nfind-skills\nfrontend-design\ninteraction-design\nvercel-react-best-practices\nweb-design-guidelines\nwriting-clearly-and-concisely\n\nFILTERS\nALL / SHARED / PRIVATE / SYSTEM",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zyxZu",
+                  "name": "Detail Panel",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "tZuz8",
+                      "name": "detailTitleA",
+                      "fill": "#2563EB",
+                      "content": "[SELECTED SKILL / frontend-design]",
+                      "fontFamily": "Outfit",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "AVqUJ",
+                      "name": "detailBodyA",
+                      "fill": "#334155",
+                      "content": "PRIMARY ID\nname: frontend-design\nfolder: frontend-design\n\nLOCATIONS\n1. C:\\Users\\l3e\\.agents\\skills\\frontend-design\n2. C:\\Users\\l3e\\.config\\opencode\\skills\\frontend-design\n3. C:\\Users\\l3e\\.claude\\skills\\frontend-design\n\nSTATUS\nMATCHED ACROSS 3 ROOTS\nNO AUTO-SYNC\nREADY FOR MANUAL COPY OR DIFF\n\nNEXT\nOPEN SKILL.MD / COMPARE / SYNC TO TARGET",
+                      "fontFamily": "Outfit",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "TPUuc",
+      "x": 1560,
+      "y": 0,
+      "name": "Skill-Centric Concept",
+      "clip": true,
+      "width": 1440,
+      "height": 1024,
+      "fill": "#F8FAFC",
+      "children": [
+        {
+          "type": "frame",
+          "id": "RiOFD",
+          "name": "Sidebar",
+          "width": 360,
+          "height": "fill_container",
+          "fill": "#F1F5F9",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": 24,
+          "children": [
+            {
+              "type": "text",
+              "id": "OiIvt",
+              "name": "brandA",
+              "fill": "#0F172A",
+              "content": "SKILLMGR/02",
+              "fontFamily": "Outfit",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "KuxTQ",
+              "name": "sideDescA",
+              "fill": "#64748B",
+              "content": "SKILL INDEX VIEW\nStart from one skill name,\nthen inspect every location.",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "R90vD",
+              "name": "Environment Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HuARo",
+                  "name": "envTextA",
+                  "fill": "#334155",
+                  "content": "[SKILL HEALTH]\nUNIQUE SKILLS     31\nMULTI-HOME        08\nSYSTEM-ONLY       04\n\nHOTSPOT\nfrontend-design appears in 3 roots",
+                  "fontFamily": "Outfit",
+                  "fontSize": 12,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ok516",
+              "name": "Roots Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "gQqkS",
+                  "name": "rootsTextA",
+                  "fill": "#64748B",
+                  "content": "[SOURCE GROUPS]\nWINDOWS USER ROOTS\nWSL ROOTS\nSYSTEM ROOTS\nLINKED ENTRIES\nUNREADABLE PATHS",
+                  "fontFamily": "Outfit",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "OldMh",
+              "name": "Action Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Mqzjo",
+                  "name": "actionTextA",
+                  "fill": "#2563EB",
+                  "content": "[PRIMARY ACTIONS]\nCOMPARE COPIES\nOPEN ALL LOCATIONS\nSYNC TO TARGET\nMARK PREFERRED SOURCE",
+                  "fontFamily": "Outfit",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "1ZaoQ",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#F8FAFC",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            32,
+            40
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "UBY4O",
+              "name": "heroKickerA",
+              "fill": "#2563EB",
+              "content": "// SKILL INDEX",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "4nAtt",
+              "name": "heroTitleA",
+              "fill": "#0F172A",
+              "content": "Skill-Centric Inventory",
+              "fontFamily": "Outfit",
+              "fontSize": 34,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "XHMII",
+              "name": "heroSubA",
+              "fill": "#64748B",
+              "content": "Browse by skill identity first, then inspect where each copy lives, which one is preferred, and whether a manual sync is worth doing.",
+              "fontFamily": "Outfit",
+              "fontSize": 13,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "2XGZm",
+              "name": "Metrics Row",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "SDWwq",
+                  "name": "Metric Roots",
+                  "width": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "TReUe",
+                      "name": "metricTextAA",
+                      "fill": "#0F172A",
+                      "content": "UNIQUE SKILLS\n31\nGROUPED BY SKILL.MD NAME",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "diQT0",
+                  "name": "Metric Skills",
+                  "width": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "zivwz",
+                      "name": "metricTextBA",
+                      "fill": "#0F172A",
+                      "content": "MULTI-HOME\n08\n3 NEED REVIEW / 2 DRIFTED",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "t3Vlu",
+              "name": "Content Row",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "U52S6",
+                  "name": "Inventory Panel",
+                  "width": 430,
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uGunj",
+                      "name": "invHeader",
+                      "fill": "#0F172A",
+                      "content": "Skills",
+                      "fontFamily": "Outfit",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ypjm7",
+                      "name": "searchBox",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 10,
+                      "layout": "vertical",
+                      "padding": [
+                        12,
+                        14
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "eAlai",
+                          "name": "searchText",
+                          "fill": "#94A3B8",
+                          "content": "Search by skill name, source, or status",
+                          "fontFamily": "Outfit",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Xo2O9",
+                      "name": "tabRow",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "NnaZj",
+                          "name": "tab1",
+                          "fill": "#DBEAFE",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "3uRaC",
+                              "name": "tab1Text",
+                              "fill": "#1D4ED8",
+                              "content": "All 31",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XTChM",
+                          "name": "tab2",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "9jVLl",
+                              "name": "tab2Text",
+                              "fill": "#475569",
+                              "content": "Multi-home 8",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "KDUBc",
+                          "name": "tab3",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "uKE4g",
+                              "name": "tab3Text",
+                              "fill": "#475569",
+                              "content": "Linked 1",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "8j6Xw",
+                          "name": "tab4",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "2sUIC",
+                              "name": "tab4Text",
+                              "fill": "#475569",
+                              "content": "System 4",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Oz65h",
+                      "name": "skillList",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "1fjgp",
+                          "name": "row1",
+                          "width": "fill_container",
+                          "fill": "#EFF6FF",
+                          "cornerRadius": 12,
+                          "padding": 14,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "bIEMc",
+                              "name": "row1Text",
+                              "fill": "#0F172A",
+                              "content": "frontend-design\n3 locations  ·  shared  ·  updated 2d ago",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "oirKO",
+                          "name": "row2",
+                          "width": "fill_container",
+                          "fill": "#F8FAFC",
+                          "cornerRadius": 12,
+                          "padding": 14,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Hlg7O",
+                              "name": "row2Text",
+                              "fill": "#0F172A",
+                              "content": "find-skills\n3 locations  ·  shared  ·  stable",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "EPPAS",
+                          "name": "row3",
+                          "width": "fill_container",
+                          "fill": "#F8FAFC",
+                          "cornerRadius": 12,
+                          "padding": 14,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "z3KyD",
+                              "name": "row3Text",
+                              "fill": "#0F172A",
+                              "content": "interaction-design\nlinked entry  ·  private  ·  review target",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Hp08J",
+                  "name": "Detail Panel",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9og0M",
+                      "name": "detHeader",
+                      "fill": "#0F172A",
+                      "content": "frontend-design",
+                      "fontFamily": "Outfit",
+                      "fontSize": 22,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Qlzm2",
+                      "name": "badgeRow",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "DOz27",
+                          "name": "badge1",
+                          "fill": "#DCFCE7",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Ti2cB",
+                              "name": "badge1Text",
+                              "fill": "#166534",
+                              "content": "shared",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "oWGn5",
+                          "name": "badge2",
+                          "fill": "#DBEAFE",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "isA8U",
+                              "name": "badge2Text",
+                              "fill": "#1D4ED8",
+                              "content": "3 locations",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "b3Gqk",
+                          "name": "badge3",
+                          "fill": "#FEF3C7",
+                          "cornerRadius": 999,
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "R3VpY",
+                              "name": "badge3Text",
+                              "fill": "#92400E",
+                              "content": "wsl unreadable",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QqtQm",
+                      "name": "summaryCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "eGQOl",
+                          "name": "summaryText",
+                          "fill": "#334155",
+                          "content": "Primary identity\nSKILL.md name: frontend-design\nFolder hint: frontend-design\nPreferred source: not selected",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ouybQ",
+                      "name": "presenceTitle",
+                      "fill": "#0F172A",
+                      "content": "Presence map",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "1W83n",
+                      "name": "presenceCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "AAxIE",
+                          "name": "presenceRow1",
+                          "fill": "#166534",
+                          "content": "Windows  ·  .agents      Present",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "1LtIN",
+                          "name": "presenceRow2",
+                          "fill": "#166534",
+                          "content": "Windows  ·  .config      Present",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Mlf2v",
+                          "name": "presenceRow3",
+                          "fill": "#166534",
+                          "content": "Windows  ·  .claude      Present",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qu4HF",
+                          "name": "presenceRow4",
+                          "fill": "#64748B",
+                          "content": "Windows  ·  .codex       Missing",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "uPeFe",
+                          "name": "presenceRow5",
+                          "fill": "#92400E",
+                          "content": "WSL      ·  .codex       Unreadable",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "kfaNw",
+                      "name": "actionTitle",
+                      "fill": "#0F172A",
+                      "content": "Next actions",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9Tci7",
+                      "name": "actionRow",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "b30OR",
+                          "name": "primaryBtn",
+                          "fill": "#2563EB",
+                          "cornerRadius": 10,
+                          "padding": [
+                            10,
+                            14
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "FmDnR",
+                              "name": "primaryBtnText",
+                              "fill": "#FFFFFF",
+                              "content": "Compare files",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "opaTT",
+                          "name": "secondaryBtn",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 10,
+                          "padding": [
+                            10,
+                            14
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vB1sb",
+                              "name": "secondaryBtnText",
+                              "fill": "#334155",
+                              "content": "Sync to target",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "sCbzD",
+      "x": 3120,
+      "y": 0,
+      "name": "Matrix-Centric Concept",
+      "clip": true,
+      "width": 1440,
+      "height": 1024,
+      "fill": "#F8FAFC",
+      "children": [
+        {
+          "type": "frame",
+          "id": "B15wb",
+          "name": "Sidebar",
+          "width": 266,
+          "height": "fill_container",
+          "fill": "#F1F5F9",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": 24,
+          "children": [
+            {
+              "type": "text",
+              "id": "BTDN0",
+              "name": "brandA",
+              "fill": "#0F172A",
+              "content": "SKILLMGR/03",
+              "fontFamily": "Outfit",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "hnHnW",
+              "name": "sideDescA",
+              "fill": "#64748B",
+              "content": "MATRIX VIEW\nScan every skill against every root\nat a glance.",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "NsTer",
+              "name": "Environment Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "aQ4xp",
+                  "name": "envTextA",
+                  "fill": "#334155",
+                  "content": "[MATRIX HEALTH]\nTRACKED SKILLS    31\nROOT COLUMNS      5\nISSUES            6\n\nFOCUS\nStatus comparison across roots",
+                  "fontFamily": "Outfit",
+                  "fontSize": 12,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "xpSec",
+              "name": "Roots Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FnyJG",
+                  "name": "rootsTextA",
+                  "fill": "#64748B",
+                  "content": "[VISIBLE COLUMNS]\nWIN .agents\nWIN .config\nWIN .claude\nWSL .codex\nOpenCode Lab",
+                  "fontFamily": "Outfit",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "vfLKm",
+              "name": "importCard",
+              "width": "fill_container",
+              "fill": "#F8FAFC",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "QTkez",
+                  "name": "importTitle",
+                  "fill": "#0F172A",
+                  "content": "Import custom root",
+                  "fontFamily": "Outfit",
+                  "fontSize": 13,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "oPTIE",
+                  "name": "importSub",
+                  "fill": "#64748B",
+                  "content": "Add a path and save a short alias.",
+                  "fontFamily": "Outfit",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "KIQW3",
+                  "name": "pathInput",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 10,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YUY0F",
+                      "name": "pathLabel",
+                      "fill": "#475569",
+                      "content": "PATH",
+                      "fontFamily": "Outfit",
+                      "fontSize": 11,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "JTcAn",
+                      "name": "pathValue",
+                      "fill": "#334155",
+                      "content": "...\\custom-tools\\skills",
+                      "fontFamily": "Outfit",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HLa21",
+                  "name": "aliasInput",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 10,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 10,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oOKYe",
+                      "name": "aliasLabel",
+                      "fill": "#475569",
+                      "content": "ALIAS",
+                      "fontFamily": "Outfit",
+                      "fontSize": 11,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "V57YZ",
+                      "name": "aliasValue",
+                      "fill": "#334155",
+                      "content": "OpenCode Lab",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "l4eJZ",
+                  "name": "importActionRow",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "JbUfm",
+                      "name": "importBtn",
+                      "fill": "#2563EB",
+                      "cornerRadius": 10,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a9uLk",
+                          "name": "importBtnText",
+                          "fill": "#FFFFFF",
+                          "content": "Import root",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "4Gvhy",
+                      "name": "nameBtn",
+                      "fill": "#F1F5F9",
+                      "cornerRadius": 10,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "g36hO",
+                          "name": "nameBtnText",
+                          "fill": "#334155",
+                          "content": "Save alias",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "i5ou5",
+              "name": "Action Panel",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qyDhy",
+                  "name": "actionTextA",
+                  "fill": "#2563EB",
+                  "content": "[PRIMARY ACTIONS]\nFILTER MATRIX\nOPEN SELECTED CELL\nCOMPARE ROW\nSYNC FROM SOURCE",
+                  "fontFamily": "Outfit",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "BcbhM",
+          "name": "Main",
+          "width": 1169,
+          "height": "fill_container",
+          "fill": "#F8FAFC",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            32,
+            40
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "lOFe1",
+              "name": "heroKickerA",
+              "fill": "#2563EB",
+              "content": "// SKILL MATRIX",
+              "fontFamily": "Outfit",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "V80UR",
+              "name": "heroTitleA",
+              "fill": "#0F172A",
+              "content": "Skill Inventory Matrix",
+              "fontFamily": "Outfit",
+              "fontSize": 34,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "C65vQ",
+              "name": "heroSubA",
+              "fill": "#64748B",
+              "content": "The table is the primary interface: every row is a skill, every column is a root, and cell states tell you where sync, drift, or missing copies need attention.",
+              "fontFamily": "Outfit",
+              "fontSize": 13,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "dnoS2",
+              "name": "Metrics Row",
+              "width": "fill_container",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "X4IPn",
+                  "name": "Metric Roots",
+                  "width": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9bnJc",
+                      "name": "metricTextAA",
+                      "fill": "#0F172A",
+                      "content": "TRACKED SKILLS\n31\nA-Z + STATUS FILTERS",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NAUXc",
+                  "name": "Metric Skills",
+                  "width": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "CYQIq",
+                      "name": "metricTextBA",
+                      "fill": "#0F172A",
+                      "content": "ROOT COVERAGE\n5\n2 HEALTHY / 1 DEGRADED",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "U7FmC",
+              "name": "Content Row",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7Cn8j",
+                  "name": "Inventory Panel",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "EBIWc",
+                      "name": "matrixHeader",
+                      "fill": "#0F172A",
+                      "content": "Skill distribution matrix",
+                      "fontFamily": "Outfit",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "9AAyF",
+                      "name": "matrixSub",
+                      "fill": "#64748B",
+                      "content": "See every skill across every root, then isolate drift, missing copies, and sync targets.",
+                      "fontFamily": "Outfit",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FGXqq",
+                      "name": "controlRow",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "STEOE",
+                          "name": "controlSearch",
+                          "width": 280,
+                          "fill": "#F8FAFC",
+                          "cornerRadius": 10,
+                          "padding": [
+                            10,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "3NfLT",
+                              "name": "controlSearchText",
+                              "fill": "#94A3B8",
+                              "content": "Search skill",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "3VC07",
+                          "name": "controlFilter",
+                          "fill": "#DBEAFE",
+                          "cornerRadius": 999,
+                          "padding": [
+                            10,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ThjlZ",
+                              "name": "controlFilterText",
+                              "fill": "#1D4ED8",
+                              "content": "Issues only",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "9fV7N",
+                          "name": "controlSort",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 999,
+                          "padding": [
+                            10,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "DnwlB",
+                              "name": "controlSortText",
+                              "fill": "#475569",
+                              "content": "A-Z",
+                              "fontFamily": "Outfit",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "t8v1p",
+                      "name": "legend",
+                      "fill": "#64748B",
+                      "content": "OK = present   WARN = drift   MISS = absent   BLOCK = unreadable",
+                      "fontFamily": "Outfit",
+                      "fontSize": 11,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SpZRW",
+                      "name": "rootToggleCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 10,
+                      "padding": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EpXfH",
+                          "name": "rootToggleTitle",
+                          "fill": "#0F172A",
+                          "content": "Visible roots",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hX1Vi",
+                          "name": "rootToggleSub",
+                          "fill": "#64748B",
+                          "content": "Tap a root chip to show or hide that column in the matrix.",
+                          "fontFamily": "Outfit",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "e5caI",
+                          "name": "rootChipRow",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "haK7I",
+                              "name": "chipA",
+                              "fill": "#DBEAFE",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "k73o3",
+                                  "name": "chipAText",
+                                  "fill": "#1D4ED8",
+                                  "content": "Win .agents",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "DSwHH",
+                              "name": "chipB",
+                              "fill": "#DBEAFE",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "zEO16",
+                                  "name": "chipBText",
+                                  "fill": "#1D4ED8",
+                                  "content": "Win .config",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "bgOCb",
+                              "name": "chipC",
+                              "fill": "#DBEAFE",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "6kPFc",
+                                  "name": "chipCText",
+                                  "fill": "#1D4ED8",
+                                  "content": "Win .claude",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "bB9Xb",
+                              "name": "chipD",
+                              "fill": "#DBEAFE",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ul3tt",
+                                  "name": "chipDText",
+                                  "fill": "#1D4ED8",
+                                  "content": "WSL .codex",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "rYZ6X",
+                              "name": "chipE",
+                              "fill": "#E2E8F0",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "QDHbg",
+                                  "name": "chipEText",
+                                  "fill": "#475569",
+                                  "content": "OpenCode Lab hidden",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "CQMvp",
+                          "name": "presetTitle",
+                          "fill": "#0F172A",
+                          "content": "Presets",
+                          "fontFamily": "Outfit",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "k1Kq4",
+                          "name": "presetRow",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "dpbvK",
+                              "name": "presetA",
+                              "fill": "#DBEAFE",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "k0d9A",
+                                  "name": "presetAText",
+                                  "fill": "#1D4ED8",
+                                  "content": "Codex view",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "yGOst",
+                              "name": "presetB",
+                              "fill": "#F1F5F9",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "9dEqe",
+                                  "name": "presetBText",
+                                  "fill": "#475569",
+                                  "content": "Claude view",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "HKRyl",
+                              "name": "presetC",
+                              "fill": "#F1F5F9",
+                              "cornerRadius": 999,
+                              "padding": [
+                                8,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "JyT0n",
+                                  "name": "presetCText",
+                                  "fill": "#475569",
+                                  "content": "All Windows",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QUL0T",
+                      "name": "tableWrap",
+                      "width": "fill_container",
+                      "fill": "#E2E8F0",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 1,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "GRuFe",
+                          "name": "headerRow",
+                          "width": "fill_container",
+                          "height": 52,
+                          "fill": "#E2E8F0",
+                          "gap": 1,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "UiWCA",
+                              "name": "hSkill",
+                              "width": 200,
+                              "height": "fill_container",
+                              "fill": "#F8FAFC",
+                              "padding": 16,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "DuOYo",
+                                  "name": "hSkillText",
+                                  "fill": "#475569",
+                                  "content": "SKILL NAME",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hbySl",
+                              "name": "hA",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F8FAFC",
+                              "padding": [
+                                16,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "M39Jp",
+                                  "name": "hAText",
+                                  "fill": "#475569",
+                                  "content": "WIN .agents",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "tdMje",
+                              "name": "hB",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F8FAFC",
+                              "padding": [
+                                16,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "zWcq7",
+                                  "name": "hBText",
+                                  "fill": "#475569",
+                                  "content": "WIN .config",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "HsF6F",
+                              "name": "hC",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F8FAFC",
+                              "padding": [
+                                16,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "THA30",
+                                  "name": "hCText",
+                                  "fill": "#475569",
+                                  "content": "WIN .claude",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "cyPV9",
+                              "name": "hD",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F8FAFC",
+                              "padding": [
+                                16,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "4a5rt",
+                                  "name": "hDText",
+                                  "fill": "#475569",
+                                  "content": "WSL .codex",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "JshOA",
+                          "name": "rowA",
+                          "width": "fill_container",
+                          "height": 48,
+                          "fill": "#E2E8F0",
+                          "gap": 1,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "d7ANK",
+                              "name": "rowASkill",
+                              "width": 200,
+                              "height": "fill_container",
+                              "fill": "#FFFFFF",
+                              "padding": [
+                                14,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "aukzS",
+                                  "name": "rowASkillText",
+                                  "fill": "#2563EB",
+                                  "content": "find-skills",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 13,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "jpwyq",
+                              "name": "rowAA",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F0FDF4",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "l7nAV",
+                                  "name": "rowAAText",
+                                  "fill": "#166534",
+                                  "content": "OK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "0mTei",
+                              "name": "rowAB",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F0FDF4",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "JAgcz",
+                                  "name": "rowABText",
+                                  "fill": "#166534",
+                                  "content": "OK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "BAZo3",
+                              "name": "rowAC",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#FFFFFF",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "d57xk",
+                                  "name": "rowACText",
+                                  "fill": "#94A3B8",
+                                  "content": "MISS",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "vFxTw",
+                              "name": "rowAD",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F0FDF4",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "BoZHI",
+                                  "name": "rowADText",
+                                  "fill": "#166534",
+                                  "content": "OK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "TO85v",
+                          "name": "rowB",
+                          "width": "fill_container",
+                          "height": 48,
+                          "fill": "#E2E8F0",
+                          "gap": 1,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "erckJ",
+                              "name": "rowBSkill",
+                              "width": 200,
+                              "height": "fill_container",
+                              "fill": "#EFF6FF",
+                              "padding": [
+                                14,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "XV337",
+                                  "name": "rowBSkillText",
+                                  "fill": "#2563EB",
+                                  "content": "frontend-design",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 13,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "jc2n9",
+                              "name": "rowBA",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#FEF3C7",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "69Bdy",
+                                  "name": "rowBAText",
+                                  "fill": "#92400E",
+                                  "content": "WARN",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "uhWgc",
+                              "name": "rowBB",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F0FDF4",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "zKxHP",
+                                  "name": "rowBBText",
+                                  "fill": "#166534",
+                                  "content": "OK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "YtqKH",
+                              "name": "rowBC",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#FEF3C7",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "grmev",
+                                  "name": "rowBCText",
+                                  "fill": "#92400E",
+                                  "content": "WARN",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "kZIIV",
+                              "name": "rowBD",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#FEE2E2",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "z6fD2",
+                                  "name": "rowBDText",
+                                  "fill": "#B91C1C",
+                                  "content": "BLOCK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "cIr4s",
+                          "name": "rowC",
+                          "width": "fill_container",
+                          "height": 48,
+                          "fill": "#E2E8F0",
+                          "gap": 1,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "LcnxT",
+                              "name": "rowCSkill",
+                              "width": 200,
+                              "height": "fill_container",
+                              "fill": "#FFFFFF",
+                              "padding": [
+                                14,
+                                16
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "sNEbX",
+                                  "name": "rowCSkillText",
+                                  "fill": "#2563EB",
+                                  "content": "interaction-design",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 13,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "wTGt4",
+                              "name": "rowCA",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#FFFFFF",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "sfquc",
+                                  "name": "rowCAText",
+                                  "fill": "#94A3B8",
+                                  "content": "MISS",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "7dXVD",
+                              "name": "rowCB",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F0FDF4",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "CCcLE",
+                                  "name": "rowCBText",
+                                  "fill": "#166534",
+                                  "content": "OK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "VohEX",
+                              "name": "rowCC",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#F0FDF4",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "FqtNK",
+                                  "name": "rowCCText",
+                                  "fill": "#166534",
+                                  "content": "OK",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "GhOzA",
+                              "name": "rowCD",
+                              "width": 96,
+                              "height": "fill_container",
+                              "fill": "#FFFFFF",
+                              "padding": [
+                                14,
+                                12
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "CJynp",
+                                  "name": "rowCDText",
+                                  "fill": "#94A3B8",
+                                  "content": "MISS",
+                                  "fontFamily": "Outfit",
+                                  "fontSize": 12,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "iIkdq",
+                  "name": "Detail Panel",
+                  "width": 340,
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "xi0bB",
+                      "name": "inspectorTitle",
+                      "fill": "#0F172A",
+                      "content": "Matrix inspector",
+                      "fontFamily": "Outfit",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "mtcR5",
+                      "name": "selectedCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "nYSt9",
+                          "name": "selectedText",
+                          "fill": "#0F172A",
+                          "content": "Selected row\nfrontend-design\n\nFocused cell\nWSL .codex  ·  BLOCK\nUnreadable target path",
+                          "fontFamily": "Outfit",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "yOhls",
+                      "name": "reasonTitle",
+                      "fill": "#0F172A",
+                      "content": "Why flagged",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "XMFir",
+                      "name": "reasonCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yPE3b",
+                          "name": "reasonText",
+                          "fill": "#334155",
+                          "content": "Windows copies exist, but the WSL root could not be read from the current environment. A manual open or rescan is needed before parity can be trusted.",
+                          "fontFamily": "Outfit",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "8ZA6p",
+                      "name": "actionsTitle",
+                      "fill": "#0F172A",
+                      "content": "Actions",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "wtwjN",
+                      "name": "actionsCol",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "1ZFtn",
+                          "name": "btn1",
+                          "width": "fill_container",
+                          "fill": "#2563EB",
+                          "cornerRadius": 10,
+                          "padding": [
+                            10,
+                            14
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "kXthv",
+                              "name": "btn1Text",
+                              "fill": "#FFFFFF",
+                              "content": "Compare full row",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "6Ao23",
+                          "name": "btn2",
+                          "width": "fill_container",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 10,
+                          "padding": [
+                            10,
+                            14
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "XqIF3",
+                              "name": "btn2Text",
+                              "fill": "#334155",
+                              "content": "Open selected root",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "kR5ZF",
+                          "name": "btn3",
+                          "width": "fill_container",
+                          "fill": "#F1F5F9",
+                          "cornerRadius": 10,
+                          "padding": [
+                            10,
+                            14
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Hhpp3",
+                              "name": "btn3Text",
+                              "fill": "#334155",
+                              "content": "Sync from preferred source",
+                              "fontFamily": "Outfit",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "wQnp4",
+                      "name": "pathTitle",
+                      "fill": "#0F172A",
+                      "content": "Selected paths",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oJ2SL",
+                      "name": "pathCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SXSBQ",
+                          "name": "pathText",
+                          "fill": "#334155",
+                          "content": "C:\\Users\\l3e\\.config\\opencode\\skills\\frontend-design\nC:\\Users\\l3e\\.claude\\skills\\frontend-design\n\\\\wsl.localhost\\Ubuntu\\home\\lee\\.codex\\skills\\frontend-design",
+                          "fontFamily": "Outfit",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "L7AeR",
+                      "name": "diffTitle",
+                      "fill": "#0F172A",
+                      "content": "Mini-Diff",
+                      "fontFamily": "Outfit",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "eKIAu",
+                      "name": "diffCard",
+                      "width": "fill_container",
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 16,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "r5Cx2",
+                          "name": "diffText",
+                          "fill": "#0F172A",
+                          "content": "Size      12kb vs 15kb\nModified  2h ago vs 5d ago\nHash      partial match",
+                          "fontFamily": "Outfit",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
