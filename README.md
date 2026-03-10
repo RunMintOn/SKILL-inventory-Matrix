@@ -1,7 +1,7 @@
 # SkillManager
 
 SkillManager is a Tauri desktop app for comparing, scanning, and managing agent `skills` folders across multiple roots.
-
+![alt text](image-1.png)
 ## What It Does
 
 - Scans multiple `skills` roots in one matrix view
