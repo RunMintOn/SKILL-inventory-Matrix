@@ -1,4 +1,5 @@
 import {
+  bridgeBootstrapConfig,
   bridgeCopySkill,
   bridgeCopyText,
   bridgeInspectPath,
@@ -13,6 +14,10 @@ import { t } from "./i18n.js";
 
 export function getRuntimeLabel() {
   return getRuntimeMode();
+}
+
+export async function getBootstrapConfig() {
+  return bridgeBootstrapConfig();
 }
 
 function getSelectionPath(skill, root) {

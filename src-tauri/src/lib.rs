@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{
   collections::{BTreeMap, BTreeSet},
+  env,
   fs,
   path::{Component, Path, PathBuf, Prefix},
   process::Command,
@@ -54,6 +55,25 @@ struct ScanResult {
   roots: Vec<Root>,
   skills: Vec<Skill>,
   summary: String,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct BootstrapConfig {
+  roots: Vec<Root>,
+  source: BootstrapSource,
+  skills: Vec<Skill>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct BootstrapSource {
+  mode: String,
+  root_id: String,
+  alias: String,
+  path: String,
+  health: String,
+  readable: bool,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -169,6 +189,22 @@ fn open_path(path: String) -> Result<bool, String> {
 #[tauri::command]
 fn inspect_path(path: String) -> Result<PathInspection, String> {
   Ok(inspect_directory(&path))
+}
+
+#[tauri::command]
+fn bootstrap_config() -> Result<BootstrapConfig, String> {
+  Ok(BootstrapConfig {
+    roots: default_roots(),
+    source: BootstrapSource {
+      mode: "custom".to_string(),
+      root_id: String::new(),
+      alias: String::new(),
+      path: String::new(),
+      health: "unknown".to_string(),
+      readable: false,
+    },
+    skills: Vec::new(),
+  })
 }
 
 #[tauri::command]
@@ -518,6 +554,51 @@ fn scan_root_dir(root_path: &Path) -> Result<Vec<ScannedSkill>, String> {
   scan_direct_skill_dirs(root_path)
 }
 
+fn default_roots() -> Vec<Root> {
+  let Some(home_dir) = current_home_dir() else {
+    return Vec::new();
+  };
+
+  vec![
+    make_default_root("win-agents", "Agent", "agents", home_dir.join(".agents").join("skills")),
+    make_default_root(
+      "win-opencode",
+      "OpenCode",
+      "opencode",
+      home_dir.join(".config").join("opencode").join("skills"),
+    ),
+    make_default_root("win-codex", "Codex", "codex", home_dir.join(".codex").join("skills")),
+    make_default_root("win-claude", "Claude", "claude", home_dir.join(".claude").join("skills")),
+    make_default_root("win-gemini", "Gemini", "gemini", home_dir.join(".gemini").join("skills")),
+    make_default_root(
+      "win-antigravity",
+      "Antigravity",
+      "antigravity",
+      home_dir.join(".antigravity").join("skills"),
+    ),
+    make_default_root("win-qwen", "Qwen", "qwen", home_dir.join(".qwen").join("skills")),
+  ]
+}
+
+fn make_default_root(id: &str, label: &str, kind: &str, path: PathBuf) -> Root {
+  Root {
+    id: id.to_string(),
+    label: label.to_string(),
+    path: path.to_string_lossy().to_string(),
+    visible: true,
+    kind: kind.to_string(),
+    health: "unknown".to_string(),
+    can_copy: false,
+    can_delete: false,
+  }
+}
+
+fn current_home_dir() -> Option<PathBuf> {
+  env::var_os("USERPROFILE")
+    .map(PathBuf::from)
+    .or_else(|| env::var_os("HOME").map(PathBuf::from))
+}
+
 fn scan_direct_skill_dirs(root_path: &Path) -> Result<Vec<ScannedSkill>, String> {
   let mut scanned = Vec::new();
   let mut seen_paths = BTreeSet::new();
@@ -776,6 +857,7 @@ pub fn run() {
       copy_text,
       open_path,
       inspect_path,
+      bootstrap_config,
       scan_source,
       pick_folder,
       copy_skill,
@@ -883,6 +965,38 @@ Body text here
       can_copy,
       can_delete,
     }
+  }
+
+  #[test]
+  fn make_default_root_marks_bootstrap_entries_unknown() {
+    let root = make_default_root(
+      "win-codex",
+      "Codex",
+      "codex",
+      PathBuf::from("C:\\Users\\current\\.codex\\skills"),
+    );
+    assert_eq!(root.health, "unknown");
+    assert!(!root.can_copy);
+    assert!(!root.can_delete);
+  }
+
+  #[test]
+  fn default_roots_follow_current_home_shape() {
+    let home = PathBuf::from("C:\\Users\\current");
+    let roots = vec![
+      make_default_root("win-agents", "Agent", "agents", home.join(".agents").join("skills")),
+      make_default_root(
+        "win-opencode",
+        "OpenCode",
+        "opencode",
+        home.join(".config").join("opencode").join("skills"),
+      ),
+      make_default_root("win-codex", "Codex", "codex", home.join(".codex").join("skills")),
+    ];
+
+    assert_eq!(roots[0].path, "C:\\Users\\current\\.agents\\skills");
+    assert_eq!(roots[1].path, "C:\\Users\\current\\.config\\opencode\\skills");
+    assert_eq!(roots[2].path, "C:\\Users\\current\\.codex\\skills");
   }
 
   fn make_scanned_skill(name: &str, folder: &str, path: &str, hash: &str) -> ScannedSkill {

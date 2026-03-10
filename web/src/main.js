@@ -28,6 +28,7 @@ import {
 import {
   copyFromSource,
   copySelectedPath,
+  getBootstrapConfig,
   getRuntimeLabel,
   inspectSourcePath,
   openSelectedPath,
@@ -346,7 +347,8 @@ function bootstrapActions() {
         ui.showToast(error.message || t("toast.root.update.failed"));
       }
     },
-    async onRescanRoots() {
+    async onRescanRoots(options = {}) {
+      const silent = Boolean(options.silent);
       try {
         const result = await rescanRoots(state.roots, state.skills);
         applyScanResults(result);
@@ -354,10 +356,14 @@ function bootstrapActions() {
 
         await actions.onRefreshSourceInventory();
 
-        const message = state.locale === "en" ? (result.summary ?? t("toast.rescan.done")) : t("toast.rescan.done");
-        ui.showToast(message);
+        if (!silent) {
+          const message = state.locale === "en" ? (result.summary ?? t("toast.rescan.done")) : t("toast.rescan.done");
+          ui.showToast(message);
+        }
       } catch (error) {
-        ui.showToast(error.message || t("toast.rescan.failed"));
+        if (!silent) {
+          ui.showToast(error.message || t("toast.rescan.failed"));
+        }
       }
     },
     onSearch(value) {
@@ -433,8 +439,13 @@ function bootstrapActions() {
   return actions;
 }
 
-export function initApp() {
-  loadPersistedState();
+export async function initApp() {
+  const bootstrap = await getBootstrapConfig().catch((error) => {
+    console.warn("Failed to load bootstrap config", error);
+    return { roots: [], source: {}, skills: [] };
+  });
+
+  loadPersistedState(bootstrap);
   const actions = bootstrapActions();
   ui = createUI(actions);
   ui.bindEvents();
@@ -442,10 +453,5 @@ export function initApp() {
   initZoomControls();
   initSidebarResize();
 
-  if (getRuntimeLabel() === "tauri") {
-    actions.onRescanRoots();
-    return;
-  }
-
-  actions.onRefreshSourceInventory();
+  await actions.onRescanRoots({ silent: true });
 }

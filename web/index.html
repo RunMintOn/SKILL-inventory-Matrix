@@ -16,6 +16,20 @@
       </div>
       <button class="button button--secondary button--small" id="lang-toggle" type="button">中文 / EN</button>
 
+      <section class="side-card runtime-notice" id="runtime-notice" hidden>
+        <span class="side-card__label" data-i18n="runtime.notice.title">运行模式提醒</span>
+        <p class="muted" data-i18n="runtime.notice.body">浏览器模式只用于静态预览，不会扫描本机路径。请使用 Tauri 桌面应用执行真实操作。</p>
+      </section>
+
+      <section class="side-card guide-card">
+        <span class="side-card__label" data-i18n="guide.title">快速开始</span>
+        <ol class="guide-list">
+          <li data-i18n="guide.item.root">根路径必须直接指向某个 `skills` 文件夹。</li>
+          <li data-i18n="guide.item.source">先选择或设置一个活动源，再执行复制操作。</li>
+          <li data-i18n="guide.item.merge">导入的自定义根会直接加入同一个 root 列表。</li>
+        </ol>
+      </section>
+
       <section class="side-card">
         <span class="side-card__label" data-i18n="sidebar.health">矩阵健康</span>
         <dl class="stat-stack">
@@ -47,12 +61,12 @@
           <button class="button button--secondary button--small" id="open-source-action" type="button" data-i18n="source.open">打开源</button>
         </div>
         <div class="source-status">
-          <strong id="active-source-name">Win .config</strong>
-          <span id="active-source-health" class="status-pill status-pill--ok">HEALTHY</span>
+          <strong id="active-source-name">未配置源</strong>
+          <span id="active-source-health" class="status-pill status-pill--miss">UNKNOWN</span>
         </div>
-        <p id="active-source-mode" class="muted">Using existing root</p>
-        <p id="active-source-path" class="code-line">C:\Users\l3e\.config\opencode\skills</p>
-        <p id="active-source-summary" class="muted">Scanned 0 skills from source</p>
+        <p id="active-source-mode" class="muted">Using custom source</p>
+        <p id="active-source-path" class="code-line">未配置源路径</p>
+        <p id="active-source-summary" class="muted">活动源尚未扫描。</p>
         <form id="custom-source-form" class="import-form">
           <label>
             <span data-i18n="source.customPath">自定义源路径</span>
@@ -77,10 +91,10 @@
         <div class="root-selection-panel">
           <div class="root-selection-panel__header">
             <span class="side-card__label" data-i18n="roots.selected">当前选中 root</span>
-            <span id="selected-sidebar-root-health" class="status-pill status-pill--ok">健康</span>
+            <span id="selected-sidebar-root-health" class="status-pill status-pill--miss">未知</span>
           </div>
-          <strong id="selected-sidebar-root-name">Win .config</strong>
-          <p id="selected-sidebar-root-path" class="code-line">C:\Users\l3e\.config\opencode\skills</p>
+          <strong id="selected-sidebar-root-name">n/a</strong>
+          <p id="selected-sidebar-root-path" class="code-line">n/a</p>
           <div id="selected-sidebar-root-meta" class="chip-row"></div>
           <div id="selected-sidebar-root-actions" class="button-row"></div>
         </div>
@@ -94,7 +108,7 @@
         <form id="import-form" class="import-form">
           <label>
             <span data-i18n="roots.import.path">路径</span>
-            <input id="custom-root-path" name="path" type="text" placeholder="\\\\wsl.localhost\\Ubuntu\\home\\lee\\custom-tools\\skills">
+            <input id="custom-root-path" name="path" type="text" placeholder="C:\\Users\\your-name\\.codex\\skills">
           </label>
           <label>
             <span data-i18n="roots.import.alias">别名</span>
@@ -106,13 +120,6 @@
             <button class="button button--secondary" type="button" id="save-alias-preview" data-i18n="roots.import.saveAlias">保存别名</button>
           </div>
         </form>
-        <div class="custom-root-registry">
-          <div class="custom-root-registry__header">
-            <span class="side-card__label" data-i18n="roots.custom.title">自定义根</span>
-            <small data-i18n="roots.custom.saved">本地保存</small>
-          </div>
-          <ul id="custom-roots-list" class="root-registry-list"></ul>
-        </div>
       </section>
     </aside>
     <div class="sidebar-resizer" id="sidebar-resizer" aria-hidden="true"></div>

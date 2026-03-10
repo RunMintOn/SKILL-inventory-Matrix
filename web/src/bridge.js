@@ -40,17 +40,8 @@ function normalizePath(path) {
   return String(path || "").replace(/[\\/]+$/, "");
 }
 
-function mockSkillNamesForPath(path) {
-  if (path.includes("all_agent_skills")) return ["find-skills", "frontend-design", "interaction-design"];
-  if (path.includes(".config")) return ["find-skills", "frontend-design", "interaction-design"];
-  if (path.includes(".agents")) return ["find-skills", "frontend-design"];
-  if (path.includes(".claude")) return ["frontend-design", "interaction-design"];
-  if (path.includes(".gemini")) return ["find-skills"];
-  if (path.includes(".antigravity")) return ["frontend-design"];
-  if (path.includes(".qwen")) return ["interaction-design"];
-  if (path.includes("custom-tools")) return ["find-skills"];
-  if (path.includes(".codex")) return ["find-skills"];
-  return [];
+function browserPreviewSummary() {
+  return "Browser preview cannot inspect local folders. Run the Tauri desktop app.";
 }
 
 export async function bridgePickFolder() {
@@ -64,6 +55,26 @@ export async function bridgePickFolder() {
   }
 
   return pickFolderViaInput();
+}
+
+export async function bridgeBootstrapConfig() {
+  const invoke = getTauriInvoke();
+  if (invoke) {
+    return invoke("bootstrap_config");
+  }
+
+  return {
+    roots: [],
+    source: {
+      mode: "custom",
+      rootId: "",
+      alias: "",
+      path: "",
+      health: "unknown",
+      readable: false,
+    },
+    skills: [],
+  };
 }
 
 export async function bridgeCopyText(value) {
@@ -100,29 +111,17 @@ export async function bridgeInspectPath(path) {
   }
 
   const normalizedPath = normalizePath(path);
-  const isWindowsPath = /^[A-Za-z]:\\/.test(normalizedPath);
-  const parts = normalizedPath.split(/[/\\]+/).filter(Boolean);
-  const leaf = parts[parts.length - 1]?.toLowerCase();
-  const readable = Boolean(normalizedPath) && !normalizedPath.includes("missing");
-  const isSkillsRoot = readable && leaf === "skills";
-  const health = readable && isSkillsRoot ? "healthy" : "degraded";
 
   return {
     path: normalizedPath,
-    exists: Boolean(normalizedPath),
-    isDir: true,
-    readable,
-    isSkillsRoot,
-    health,
-    canCopy: readable && isSkillsRoot,
-    canDelete: readable && isSkillsRoot && isWindowsPath,
-    summary: !normalizedPath
-      ? "No path configured"
-      : !readable
-        ? `Mock runtime cannot read ${normalizedPath}`
-        : !isSkillsRoot
-          ? `${normalizedPath} must point directly to a skills folder`
-          : `Mock checked ${normalizedPath}`,
+    exists: false,
+    isDir: false,
+    readable: false,
+    isSkillsRoot: false,
+    health: "unknown",
+    canCopy: false,
+    canDelete: false,
+    summary: browserPreviewSummary(),
   };
 }
 
@@ -133,29 +132,11 @@ export async function bridgeScanSource(path) {
   }
 
   const inspection = await bridgeInspectPath(path);
-  if (!inspection.isSkillsRoot) {
-    return {
-      path,
-      health: inspection.health,
-      summary: inspection.summary,
-      skills: [],
-    };
-  }
-
-  const skills = mockSkillNamesForPath(path).map((name) => ({
-    name,
-    path: `${normalizePath(path)}\\${name}`,
-    isLinked: path.includes("custom-tools") && name === "find-skills",
-    resolvedPath: path.includes("custom-tools") && name === "find-skills"
-      ? "C:\\SkillsHub\\find-skills"
-      : "",
-  }));
-
   return {
     path,
-    health: "healthy",
-    summary: `Mock scanned ${skills.length} skills from source`,
-    skills,
+    health: inspection.health,
+    summary: inspection.summary,
+    skills: [],
   };
 }
 
@@ -166,9 +147,9 @@ export async function bridgeCopySkill(payload) {
   }
 
   return {
-    success: true,
-    message: `模拟复制 ${payload.skillName} -> ${payload.targetRootPath} / Mock copied ${payload.skillName} into ${payload.targetRootPath}`,
-    path: payload.targetExistingPath || `${payload.targetRootPath}\\${payload.skillName}`,
+    success: false,
+    message: browserPreviewSummary(),
+    path: payload.targetExistingPath || payload.targetRootPath,
   };
 }
 
@@ -179,8 +160,8 @@ export async function bridgeRecycleSkill(payload) {
   }
 
   return {
-    success: true,
-    message: `模拟回收 ${payload.targetPath} / Mock recycled ${payload.targetPath}`,
+    success: false,
+    message: browserPreviewSummary(),
     path: payload.targetPath,
   };
 }
@@ -191,54 +172,16 @@ export async function bridgeRescanRoots(roots, skills) {
     return invoke("scan_roots", { roots, previous_skills: skills });
   }
 
-  const nextRoots = roots.map((root) => {
-    const normalizedPath = normalizePath(root.path);
-    const isSkillsRoot = normalizedPath.toLowerCase().endsWith("\\skills") || normalizedPath.toLowerCase().endsWith("/skills");
-    const readable = isSkillsRoot && !normalizedPath.includes("missing") && normalizedPath !== "";
-
-    return {
-      ...root,
-      health: readable ? "healthy" : "degraded",
-      canCopy: readable,
-      canDelete: readable && /^[A-Za-z]:\\/.test(normalizedPath),
-    };
-  });
-
-  const nextSkills = skills
-    .filter((skill) => skill.name !== "skill-installer")
-    .map((skill) => {
-      const nextEntries = { ...skill.entries };
-      nextRoots.forEach((root) => {
-        const names = new Set(mockSkillNamesForPath(root.path));
-        nextEntries[root.id] = names.has(skill.name)
-          ? {
-              status: root.health === "healthy" ? (root.path.includes(".config") ? "ok" : "warn") : "block",
-              size: root.health === "healthy" ? "10kb" : "n/a",
-              modified: root.health === "healthy" ? "just now" : "n/a",
-              hash: root.health === "healthy" ? "rescanned" : "unreadable",
-              path: root.health === "healthy" ? `${normalizePath(root.path)}\\${skill.name}` : `${normalizePath(root.path)}\\${skill.name}`,
-              isLinked: root.path.includes("custom-tools") && skill.name === "find-skills",
-              resolvedPath: root.path.includes("custom-tools") && skill.name === "find-skills"
-                ? "C:\\SkillsHub\\find-skills"
-                : "",
-            }
-          : {
-              status: root.health === "healthy" ? "miss" : "block",
-              size: root.health === "healthy" ? "0kb" : "n/a",
-              modified: "n/a",
-              hash: root.health === "healthy" ? "missing" : "unreadable",
-              path: root.health === "healthy" ? "" : `${normalizePath(root.path)}\\${skill.name}`,
-              isLinked: false,
-              resolvedPath: "",
-            };
-      });
-
-      return { ...skill, entries: nextEntries };
-    });
+  const nextRoots = roots.map((root) => ({
+    ...root,
+    health: "unknown",
+    canCopy: false,
+    canDelete: false,
+  }));
 
   return {
     roots: nextRoots,
-    skills: nextSkills,
-    summary: `模拟重扫 ${nextRoots.length} 个根 / Rescanned ${nextRoots.length} roots in browser mock mode`,
+    skills,
+    summary: browserPreviewSummary(),
   };
 }

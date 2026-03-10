@@ -3,9 +3,6 @@ import {
   MAX_SIDEBAR_WIDTH,
   MIN_SIDEBAR_WIDTH,
   STORAGE_KEY,
-  initialRoots,
-  initialSkills,
-  initialSource,
   presets,
 } from "./config.js";
 
@@ -34,19 +31,31 @@ function emptySourceInventory() {
   };
 }
 
-function mergePersistedRoots(persistedRoots) {
+function emptySource() {
+  return {
+    mode: "custom",
+    rootId: "",
+    alias: "",
+    path: "",
+    health: "unknown",
+    readable: false,
+  };
+}
+
+function mergePersistedRoots(baseRoots, persistedRoots) {
   if (!Array.isArray(persistedRoots) || !persistedRoots.length) {
-    return clone(initialRoots);
+    return clone(baseRoots);
   }
 
   const persistedById = new Map(persistedRoots.map((root) => [root.id, root]));
-  const mergedDefaults = initialRoots.map((root) => ({
+  const mergedDefaults = baseRoots.map((root) => ({
     ...clone(root),
     ...(persistedById.get(root.id) ?? {}),
   }));
   const customRoots = persistedRoots
-    .filter((root) => !initialRoots.some((item) => item.id === root.id))
+    .filter((root) => !baseRoots.some((item) => item.id === root.id))
     .map((root) => ({
+      kind: "custom",
       canCopy: false,
       canDelete: false,
       ...root,
@@ -62,12 +71,12 @@ export const state = {
   issuesOnly: true,
   search: "",
   sortAsc: true,
-  selectedSkillId: "frontend-design",
-  selectedRootId: "win-opencode",
+  selectedSkillId: "",
+  selectedRootId: "",
   activePreset: "windows",
-  roots: clone(initialRoots),
-  skills: clone(initialSkills),
-  source: clone(initialSource),
+  roots: [],
+  skills: [],
+  source: emptySource(),
   sourceInventory: emptySourceInventory(),
   presets,
 };
@@ -92,16 +101,30 @@ export function ensureSkillEntries() {
   });
 }
 
-export function loadPersistedState() {
+export function loadPersistedState(bootstrap = {}) {
+  const baseRoots = Array.isArray(bootstrap.roots) ? clone(bootstrap.roots) : [];
+  const baseSkills = Array.isArray(bootstrap.skills) ? clone(bootstrap.skills) : [];
+  const baseSource =
+    bootstrap.source && typeof bootstrap.source === "object"
+      ? { ...emptySource(), ...clone(bootstrap.source) }
+      : emptySource();
+
+  state.roots = baseRoots;
+  state.skills = baseSkills;
+  state.source = baseSource;
+  state.sourceInventory = emptySourceInventory();
+
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
       ensureSkillEntries();
+      syncSelections();
+      syncSourceWithRoots();
       return;
     }
 
     const persisted = JSON.parse(raw);
-    if (Array.isArray(persisted.roots)) state.roots = mergePersistedRoots(persisted.roots);
+    state.roots = mergePersistedRoots(baseRoots, persisted.roots);
     if (typeof persisted.issuesOnly === "boolean") state.issuesOnly = persisted.issuesOnly;
     if (typeof persisted.search === "string") state.search = persisted.search;
     if (typeof persisted.sortAsc === "boolean") state.sortAsc = persisted.sortAsc;
@@ -114,13 +137,14 @@ export function loadPersistedState() {
     if (typeof persisted.selectedRootId === "string") state.selectedRootId = persisted.selectedRootId;
     if (typeof persisted.activePreset === "string") state.activePreset = persisted.activePreset;
     if (persisted.source && typeof persisted.source === "object") {
-      state.source = { ...clone(initialSource), ...persisted.source };
+      state.source = { ...baseSource, ...persisted.source };
     }
   } catch (error) {
     console.warn("Failed to load persisted state", error);
   }
 
   ensureSkillEntries();
+  syncSelections();
   syncSourceWithRoots();
 }
 
@@ -315,13 +339,8 @@ export function applyScanResults(result) {
     state.skills = result.skills;
   }
   ensureSkillEntries();
+  syncSelections();
   syncSourceWithRoots();
-  if (!state.skills.some((skill) => skill.id === state.selectedSkillId)) {
-    state.selectedSkillId = state.skills[0]?.id ?? "";
-  }
-  if (!state.roots.some((root) => root.id === state.selectedRootId)) {
-    state.selectedRootId = state.roots[0]?.id ?? "";
-  }
 }
 
 export function getSelectedSkill() {
@@ -382,13 +401,25 @@ function syncSourceWithRoots() {
       state.source.readable = root.health === "healthy";
       return;
     }
+
+    state.source = emptySource();
   }
 
   if (!state.source.path) {
-    const fallbackRoot = state.roots.find((item) => item.health === "healthy") ?? state.roots[0];
+    const fallbackRoot = state.roots.find((item) => item.health === "healthy");
     if (fallbackRoot) {
       setSourceFromRoot(fallbackRoot.id);
     }
+  }
+}
+
+function syncSelections() {
+  if (!state.skills.some((skill) => skill.id === state.selectedSkillId)) {
+    state.selectedSkillId = state.skills[0]?.id ?? "";
+  }
+
+  if (!state.roots.some((root) => root.id === state.selectedRootId)) {
+    state.selectedRootId = state.roots[0]?.id ?? "";
   }
 }
 

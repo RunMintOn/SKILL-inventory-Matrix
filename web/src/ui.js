@@ -33,6 +33,7 @@ export function createUI(actions) {
     rootChips: document.querySelector("#root-chips"),
     presetChips: document.querySelector("#preset-chips"),
     rootOverviewList: document.querySelector("#root-overview-list"),
+    runtimeNotice: document.querySelector("#runtime-notice"),
     selectedSidebarRootName: document.querySelector("#selected-sidebar-root-name"),
     selectedSidebarRootPath: document.querySelector("#selected-sidebar-root-path"),
     selectedSidebarRootHealth: document.querySelector("#selected-sidebar-root-health"),
@@ -81,7 +82,6 @@ export function createUI(actions) {
     customRootAlias: document.querySelector("#custom-root-alias"),
     pickRootFolder: document.querySelector("#pick-root-folder"),
     saveAliasPreview: document.querySelector("#save-alias-preview"),
-    customRootsList: document.querySelector("#custom-roots-list"),
     langToggle: document.querySelector("#lang-toggle"),
     rescanRootsAction: document.querySelector("#rescan-roots-action"),
     copyFromSourceAction: document.querySelector("#copy-from-source-action"),
@@ -144,6 +144,10 @@ export function createUI(actions) {
     elements.runtimeModeValue.textContent = t(actions.getRuntimeLabel() === "tauri" ? "runtime.tauri" : "runtime.browser");
   }
 
+  function renderRuntimeNotice() {
+    elements.runtimeNotice.hidden = actions.getRuntimeLabel() !== "browser";
+  }
+
   function renderSourceCard() {
     const source = getActiveSource();
     elements.activeSourceName.textContent = source.alias || t("source.none");
@@ -187,33 +191,30 @@ export function createUI(actions) {
 
   function renderRootOverview() {
     elements.rootOverviewList.innerHTML = "";
-    state.roots
-      .filter((root) => root.kind !== "custom")
-      .forEach((root) => {
-        renderRootRow(elements.rootOverviewList, root);
-      });
-  }
-
-  function renderCustomRoots() {
-    const customRoots = state.roots.filter((root) => root.kind === "custom");
-    elements.customRootsList.innerHTML = "";
-
-    if (!customRoots.length) {
+    if (!state.roots.length) {
       const empty = document.createElement("li");
       empty.className = "root-registry-item--empty";
-      empty.textContent = t("root.custom.empty");
-      elements.customRootsList.appendChild(empty);
+      empty.textContent = t("roots.empty");
+      elements.rootOverviewList.appendChild(empty);
       return;
     }
 
-    customRoots.forEach((root) => {
-      renderRootRow(elements.customRootsList, root);
+    state.roots.forEach((root) => {
+      renderRootRow(elements.rootOverviewList, root);
     });
   }
 
   function renderSelectedRootPanel() {
     const root = getSelectedRoot();
-    if (!root) return;
+    if (!root) {
+      elements.selectedSidebarRootName.textContent = "n/a";
+      elements.selectedSidebarRootPath.textContent = "n/a";
+      elements.selectedSidebarRootHealth.textContent = formatHealthLabel("unknown");
+      elements.selectedSidebarRootHealth.className = "status-pill status-pill--miss";
+      elements.selectedSidebarRootMeta.innerHTML = "";
+      elements.selectedSidebarRootActions.innerHTML = "";
+      return;
+    }
 
     elements.selectedSidebarRootName.textContent = root.label;
     elements.selectedSidebarRootPath.textContent = root.path;
@@ -356,6 +357,28 @@ export function createUI(actions) {
   function renderInspector() {
     const skill = getSelectedSkill();
     const root = getSelectedRoot();
+    if (!skill || !root) {
+      elements.selectedSkillName.textContent = "n/a";
+      elements.selectedRootName.textContent = "n/a";
+      elements.selectedStatusBadge.textContent = t("status.miss");
+      elements.selectedStatusBadge.className = "status-pill status-pill--miss";
+      elements.selectedStatusNote.textContent = t("matrix.empty");
+      elements.selectedReason.textContent = t("inspector.empty");
+      elements.selectedCurrentPath.textContent = t("path.none");
+      elements.selectedCurrentLinkRow.hidden = true;
+      elements.selectedPreferredPath.textContent = t("source.path.none");
+      elements.selectedPreferredLinkRow.hidden = true;
+      elements.selectedPaths.innerHTML = `<li>${t("path.noneList")}</li>`;
+      elements.diffPair.textContent = t("diff.needTwo");
+      elements.diffSize.textContent = "n/a";
+      elements.diffModified.textContent = "n/a";
+      elements.diffHash.textContent = "n/a";
+      elements.copyFromSourceAction.disabled = true;
+      elements.deleteTargetAction.disabled = true;
+      elements.actionHelp.textContent = t("inspector.empty");
+      return;
+    }
+
     const entry = skill.entries[root.id];
     const source = getActiveSource();
     const sourceSkill = getSourceSkill(skill.name);
@@ -487,10 +510,10 @@ export function createUI(actions) {
 
   function render() {
     applyTranslations();
+    renderRuntimeNotice();
     renderSidebarStats();
     renderSourceCard();
     renderRootOverview();
-    renderCustomRoots();
     renderSelectedRootPanel();
     renderRootChips();
     renderPresetChips();
