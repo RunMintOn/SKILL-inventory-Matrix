@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技能矩阵 / Skill Inventory Matrix</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <span class="eyebrow">SKILLMGR/03</span>
+        <h1 data-i18n="sidebar.title">矩阵视图</h1>
+        <p data-i18n="sidebar.subtitle">一眼查看每个技能在每个根路径的分布。</p>
+      </div>
+      <button class="button button--secondary button--small" id="lang-toggle" type="button">中文 / EN</button>
+
+      <section class="side-card">
+        <span class="side-card__label" data-i18n="sidebar.health">矩阵健康</span>
+        <dl class="stat-stack">
+          <div>
+            <dt data-i18n="sidebar.tracked">技能数</dt>
+            <dd id="tracked-skills-value">0</dd>
+          </div>
+          <div>
+            <dt data-i18n="sidebar.roots">根路径数</dt>
+            <dd id="root-columns-value">0</dd>
+          </div>
+          <div>
+            <dt data-i18n="sidebar.issues">问题数</dt>
+            <dd id="issues-value">0</dd>
+          </div>
+          <div>
+            <dt data-i18n="sidebar.runtime">运行时</dt>
+            <dd id="runtime-mode-value">Browser mock</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="side-card">
+        <div class="source-card__header">
+          <div>
+            <span class="side-card__label" data-i18n="source.title">全局源</span>
+            <p class="muted" data-i18n="source.subtitle">一个活动源驱动所有复制操作。</p>
+          </div>
+          <button class="button button--secondary button--small" id="open-source-action" type="button" data-i18n="source.open">打开源</button>
+        </div>
+        <div class="source-status">
+          <strong id="active-source-name">Win .config</strong>
+          <span id="active-source-health" class="status-pill status-pill--ok">HEALTHY</span>
+        </div>
+        <p id="active-source-mode" class="muted">Using existing root</p>
+        <p id="active-source-path" class="code-line">C:\Users\l3e\.config\opencode\skills</p>
+        <p id="active-source-summary" class="muted">Scanned 0 skills from source</p>
+        <form id="custom-source-form" class="import-form">
+          <label>
+            <span data-i18n="source.customPath">自定义源路径</span>
+            <input id="custom-source-path" name="path" type="text" placeholder="D:\\skills-master" data-i18n-placeholder="source.customPath">
+          </label>
+          <label>
+            <span data-i18n="source.alias">别名</span>
+            <input id="custom-source-alias" name="alias" type="text" placeholder="主技能仓" data-i18n-placeholder="source.alias">
+          </label>
+          <div class="button-row">
+            <button class="button button--primary" type="submit" data-i18n="source.useCustom">使用自定义源</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="side-card import-card">
+        <div>
+          <span class="side-card__label" data-i18n="roots.title">根路径总览</span>
+          <p class="muted" data-i18n="roots.subtitle">查看可读路径，打开路径，或将任意 root 设为源。</p>
+        </div>
+        <ul id="root-overview-list" class="root-registry-list"></ul>
+        <div class="root-selection-panel">
+          <div class="root-selection-panel__header">
+            <span class="side-card__label" data-i18n="roots.selected">当前选中 root</span>
+            <span id="selected-sidebar-root-health" class="status-pill status-pill--ok">健康</span>
+          </div>
+          <strong id="selected-sidebar-root-name">Win .config</strong>
+          <p id="selected-sidebar-root-path" class="code-line">C:\Users\l3e\.config\opencode\skills</p>
+          <div id="selected-sidebar-root-meta" class="chip-row"></div>
+          <div id="selected-sidebar-root-actions" class="button-row"></div>
+        </div>
+      </section>
+
+      <section class="side-card import-card">
+        <div>
+          <span class="side-card__label" data-i18n="roots.import.title">导入自定义根</span>
+          <p class="muted" data-i18n="roots.import.subtitle">添加路径并保存一个别名。</p>
+        </div>
+        <form id="import-form" class="import-form">
+          <label>
+            <span data-i18n="roots.import.path">路径</span>
+            <input id="custom-root-path" name="path" type="text" placeholder="\\\\wsl.localhost\\Ubuntu\\home\\lee\\custom-tools\\skills">
+          </label>
+          <label>
+            <span data-i18n="roots.import.alias">别名</span>
+            <input id="custom-root-alias" name="alias" type="text" placeholder="OpenCode Lab">
+          </label>
+          <div class="button-row">
+            <button class="button button--primary" type="submit" data-i18n="roots.import.submit">导入根</button>
+            <button class="button button--secondary" type="button" id="pick-root-folder" data-i18n="roots.import.pick">选择文件夹</button>
+            <button class="button button--secondary" type="button" id="save-alias-preview" data-i18n="roots.import.saveAlias">保存别名</button>
+          </div>
+        </form>
+        <div class="custom-root-registry">
+          <div class="custom-root-registry__header">
+            <span class="side-card__label" data-i18n="roots.custom.title">自定义根</span>
+            <small data-i18n="roots.custom.saved">本地保存</small>
+          </div>
+          <ul id="custom-roots-list" class="root-registry-list"></ul>
+        </div>
+      </section>
+    </aside>
+    <div class="sidebar-resizer" id="sidebar-resizer" aria-hidden="true"></div>
+
+    <main class="main-panel">
+      <header class="hero">
+        <span class="hero__eyebrow" data-i18n="hero.eyebrow">/ 技能矩阵</span>
+        <div class="hero__copy">
+          <h2 data-i18n="hero.title">技能矩阵</h2>
+          <p data-i18n="hero.desc">表格是核心：每一行是技能，每一列是根路径，单元格状态提示哪里需要同步、可能漂移或缺失。</p>
+        </div>
+      </header>
+
+      <section class="metrics-grid">
+        <article class="metric-card">
+          <span data-i18n="metric.tracked">技能数</span>
+          <strong id="metric-tracked-skills">0</strong>
+          <small data-i18n="metric.tracked.note">按字母排序 + 状态筛选</small>
+        </article>
+        <article class="metric-card">
+          <span data-i18n="metric.coverage">根覆盖率</span>
+          <strong id="metric-root-coverage">0</strong>
+          <small id="metric-root-caption">0 healthy / 0 degraded</small>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <section class="matrix-panel">
+          <div class="panel-header">
+            <div>
+              <h3 data-i18n="matrix.title">技能分布矩阵</h3>
+              <p data-i18n="matrix.desc">查看每个技能在每个根中的分布，定位漂移、缺失与待同步目标。</p>
+            </div>
+            <div class="panel-controls">
+              <input id="skill-search" class="search-input" type="search" placeholder="搜索技能" data-i18n-placeholder="matrix.search">
+              <button id="issues-toggle" class="chip chip--active" type="button" data-i18n="matrix.issuesOnly">仅问题</button>
+              <button id="sort-toggle" class="chip" type="button">A-Z</button>
+            </div>
+          </div>
+
+          <p class="legend" data-i18n="matrix.legend">OK=存在 · WARN=漂移 · MISS=缺失 · BLOCK=不可读</p>
+
+          <section class="root-tools">
+            <div class="root-tools__block">
+              <h4 data-i18n="matrix.visibleRoots">可见根</h4>
+              <p data-i18n="matrix.visibleRoots.help">点击 root 标签显示或隐藏对应列。</p>
+              <div class="chip-row" id="root-chips"></div>
+            </div>
+            <div class="root-tools__block">
+              <h4 data-i18n="matrix.presets">预设</h4>
+              <div class="chip-row" id="preset-chips"></div>
+            </div>
+          </section>
+
+          <div class="table-shell">
+            <table class="matrix-table">
+              <thead id="matrix-head"></thead>
+              <tbody id="matrix-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="inspector-panel">
+          <h3 data-i18n="inspector.title">矩阵检查器</h3>
+
+          <section class="inspector-card">
+            <span class="inspector-card__label" data-i18n="inspector.selected">选中项</span>
+            <strong id="selected-skill-name">frontend-design</strong>
+            <div class="status-meta">
+              <span id="selected-root-name">WSL .codex</span>
+              <span id="selected-status-badge" class="status-pill status-pill--block">BLOCK</span>
+            </div>
+            <p id="selected-status-note" data-i18n="inspector.status.block">目标路径不可读</p>
+          </section>
+
+          <section class="inspector-section">
+            <h4 data-i18n="inspector.why">原因</h4>
+            <div class="inspector-card">
+              <p id="selected-reason"></p>
+            </div>
+          </section>
+
+          <section class="inspector-section">
+            <h4 data-i18n="inspector.actions">操作</h4>
+            <div class="action-stack">
+              <button class="button button--primary" id="copy-from-source-action" type="button" data-i18n="inspector.copy">从源复制</button>
+              <button class="button button--secondary" id="delete-target-action" type="button" data-i18n="inspector.delete">删除目标</button>
+              <button class="button button--secondary" id="open-root-action" type="button" data-i18n="inspector.open">打开路径</button>
+              <button class="button button--secondary" id="copy-path-action" type="button" data-i18n="inspector.copyPath">复制路径</button>
+              <button class="button button--secondary" id="rescan-roots-action" type="button" data-i18n="inspector.rescan">重新扫描</button>
+            </div>
+            <p id="action-help" class="muted" data-i18n="inspector.actionHelpDefault">MISS 可从源复制，WARN/OK 可在 Windows 根上删除。</p>
+          </section>
+
+          <section class="inspector-section">
+            <h4 data-i18n="inspector.paths">路径列表</h4>
+            <div class="inspector-card">
+              <div class="path-row">
+                <span data-i18n="inspector.current">当前</span>
+                <strong id="selected-current-path">n/a</strong>
+              </div>
+              <div class="path-row" id="selected-current-link-row" hidden>
+                <span data-i18n="inspector.linkTarget">链接目标</span>
+                <strong id="selected-current-link">n/a</strong>
+              </div>
+              <div class="path-row">
+                <span data-i18n="inspector.source">源路径</span>
+                <strong id="selected-preferred-path">n/a</strong>
+              </div>
+              <div class="path-row" id="selected-preferred-link-row" hidden>
+                <span data-i18n="inspector.sourceLinkTarget">源链接目标</span>
+                <strong id="selected-preferred-link">n/a</strong>
+              </div>
+              <ul id="selected-paths" class="path-list"></ul>
+            </div>
+          </section>
+
+          <section class="inspector-section">
+            <h4 data-i18n="inspector.diff">缩略对比</h4>
+            <div class="inspector-card diff-card">
+              <p id="diff-pair" class="diff-pair">Win .agents vs Win .config</p>
+              <div>
+                <span data-i18n="diff.size">Size</span>
+                <strong id="diff-size">12kb vs 15kb</strong>
+              </div>
+              <div>
+                <span data-i18n="diff.modified">Modified</span>
+                <strong id="diff-modified">2h ago vs 5d ago</strong>
+              </div>
+              <div>
+                <span data-i18n="diff.hash">Hash</span>
+                <strong id="diff-hash">partial match</strong>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
